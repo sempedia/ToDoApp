@@ -1,0 +1,68 @@
+<!-- Build the todos-list component template-->
+<!-- Title-->
+<!-- <h1>To Do App</h1> -->
+
+<!-- Input field with label and icon -->
+<mat-form-field class="todo-input">
+    <mat-label>Enter a ToDo and press enter</mat-label>
+    <!-- We implement here the event 'enter' handler for when the user adds a new todo
+    in the list, he can write the title of the todo and then hit enter to save the todo
+in the backend and display it on the frontend store
+The 'enter' event handler will take the input.value that the user will 
+add into the input field-->
+    <input matInput #input (keyup.enter)="onAddTodo(input.value)">
+    <!-- The matSuffix directive should be applied to the mat-form-field -->
+    <mat-icon matSuffix>edit</mat-icon>
+</mat-form-field>
+
+
+<!--Toggle Filter Button with values/options: All, Pending, Completed
+- we apply a value to the buttons: All, Pending, completed
+- we detect when a todo is changing the filter from pending to completed
+- we use the chnage event and the onFilterTodos($event) event handler function
+ where we pass the new selection of the button/ the $event that's happening on the button
+
+-->
+<mat-button-toggle-group #filter (change)="onFilterTodos($event)">
+    <mat-button-toggle value="all">All</mat-button-toggle>
+    <mat-button-toggle value="pending">Pending</mat-button-toggle>
+    <mat-button-toggle value="completed">Completed</mat-button-toggle>
+    
+</mat-button-toggle-group>
+
+<!-- Display the actual list of To Dos by looping through the list-->
+<mat-selection-list class="todos-list">
+    <!-- Implement the filtering option and instead of accessing 
+    all the todos() as we do now, we will access the 
+filteredTodos()-->
+
+@for(todo of store.filteredTodos(); track todo.id; let index = $index) {
+    <!--Implement the Update functionality: 
+- [selected] input property- for marking the todo with checked and unchecked 
+for completed/pending
+[selected]="todo.completed" - we access the todo with dot notaion to check if the todo is completed
+- (selectedChange)="onTodoToggled(todo.id, $event)" - selected Change with an 
+event handler onTodoToggled(todo.id, $event) for 
+detection of change of values for completed/pending based 
+on the todo.id and $event object
+- -->
+    <mat-list-option [selected]="todo.completed"
+    (selectedChange)="onTodoToggled(todo.id, $event)" >
+        <div class="todo-item">
+        <!--Add the click handler so when a user click on the delete
+        icon to delete a todo.
+        The method will take in the todo.id and the mouse click $event -->
+            <mat-icon class="delete-todo" (click)="onDeleteTodo(todo.id, $event)">Delete</mat-icon>
+    <!--Strike through ( mark with a line-through) the todo title if the todo is completed using
+    [ngStyle] to set the css property of the span 
+    'text-decoration':
+-- if todo is completed todo.completed  then ? we set the property span 
+to 'line-through' otherwise : set text-decoration to 'none'
+-->
+            <span [ngStyle]="{'text-decoration': todo.completed ? 'line-through' : 'none'}">
+                {{ todo.title }}
+            </span>
+        </div>
+    </mat-list-option>
+}
+</mat-selection-list>

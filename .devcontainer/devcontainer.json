@@ -1,0 +1,19 @@
+{
+    "name": "Angular App Development",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "angular",
+    "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "angular.ng-template"
+    ],
+    "forwardPorts": [4200],
+    "postCreateCommand": "npm install",
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "typescript.tsdk": "/usr/local/lib/node_modules/typescript/lib",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "runArgs": ["-v", "${PWD}/.:/workspace:cached"]
+}

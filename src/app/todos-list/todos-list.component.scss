@@ -1,0 +1,25 @@
+/* We use a :host angular specific selector */
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+/* Style the todos-list and todo-input */
+.todos-list, .todo-input {
+    width: 100%;
+}
+
+/* Style the todo-item */
+.todo-item {
+    display: flex;
+    align-items: center;
+}
+
+/* Style the delete button */
+.delete-todo {
+    margin-right: 10px;
+    cursor: pointer;
+}

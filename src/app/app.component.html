@@ -1,0 +1,32 @@
+<!-- Removed all placeholder content to build our
+application component-->
+<div class="app">
+  <div class="to-do-container">
+    <img src="assets/to-do-list-icon.jpg">
+    <h1>To Do List</h1>
+    <a href="https://github.com/sempedia">Alina Bazavan</a>
+
+  </div>
+
+
+<!--Display the Load indicator to the user.
+Our store has already information about if the loading is on or off.
+So, we just need to add the signal loading() here and 
+get its latest value to be displayed.
+-->
+@if (!store.loading()) {
+  <!-- if the store is not loading, we display the To Dos-->
+  <todos-list/>
+}
+@else {
+  <!-- if the store is loading, we display the loading indicator
+    using an Angular material Spinner using the directive mat-spinner.-->
+    <mat-spinner/>
+
+}
+
+  <!-- Access the store, grab the todos() signal value and 
+  apply the json pipe to show the todos as jason an screen-->
+  <!-- {{ store.todos() | json }} -->
+
+</div>
